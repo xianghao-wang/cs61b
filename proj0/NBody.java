@@ -39,30 +39,7 @@ public class NBody {
 
         return planets;
     }
-
-    /* Draw background */
-    public static void drawBackground(double radius) {
-        StdDraw.setScale(-radius, radius);
-        StdDraw.clear();
-
-        StdDraw.picture(0, 0, backgroundFilename, 2 * radius, 2 * radius);
-    }
-
-    /* Draw all planets, be sure to call it after drawBackground(double radius) */
-    public static void drawPlanets(Planet[] planets) {
-        for (Planet p : planets) {
-            p.draw();
-        }
-    } 
-
-    /* Print results, called after animation was done */
-    public static void printUniverse(int n, double radius, Planet[] planets) {
-        System.out.println(n);
-        System.out.printf("%.2e\n", radius);
-        for (Planet p : planets) {
-            System.out.printf("%11.4e %11.4e %11.4e %11.4e %12s\n", p.xxPos, p.yyPos, p.xxVel, p.yyVel, p.mass, p.imgFileName);
-        }
-    }
+   
 
     /* Main */
     public static void main(String[] args) {
@@ -74,6 +51,8 @@ public class NBody {
 
         /* All planets */
         Planet[] planets = readPlanets(filename);
+
+        StdDraw.setScale(-radius, radius);
 
         /* Prevents flickering */
         StdDraw.enableDoubleBuffering();
@@ -96,12 +75,24 @@ public class NBody {
             }
 
             /* Draw */
-            drawBackground(radius);
-            drawPlanets(planets);
+            StdDraw.clear();
+            StdDraw.picture(0, 0, backgroundFilename, 2 * radius, 2 * radius);
+            for (Planet p : planets) {
+                p.draw();
+            }
             StdDraw.show();
 
             StdDraw.pause(10);
             currentT += dt;
+        }
+
+        /* Print results, called after animation was done */
+        StdOut.printf("%d\n", planets.length);
+        StdOut.printf("%.2e\n", radius);
+        for (int i = 0; i < planets.length; i++) {
+            StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+            planets[i].xxPos, planets[i].yyPos, planets[i].xxVel,
+            planets[i].yyVel, planets[i].mass, planets[i].imgFileName);   
         }
     }
 
