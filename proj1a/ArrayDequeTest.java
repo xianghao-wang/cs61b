@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
@@ -101,8 +102,8 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> D = new ArrayDeque<>();
 
         /* addFirst with addLast
-        * 6 5 1 2 8
-        *  */
+         * 6 5 1 2 8
+         *  */
         D.addFirst(1);
         D.addLast(2);
         D.addFirst(5);
@@ -111,8 +112,8 @@ public class ArrayDequeTest {
         D.printDeque();
 
         /* Some deletions
-        * 1 2
-        * */
+         * 1 2
+         * */
         D.removeFirst();
         D.removeFirst();
         D.removeLast();
@@ -137,7 +138,7 @@ public class ArrayDequeTest {
     public void testDynamicDeque() {
         ArrayDeque<Integer> D = new ArrayDeque<>();
 
-        for (int i = 0; i < 100; i ++) {
+        for (int i = 0; i < 100; i++) {
             D.addLast(i);
         }
 
