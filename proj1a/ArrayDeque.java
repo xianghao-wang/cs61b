@@ -1,17 +1,20 @@
-/** Deque implemented by Array
+/**
+ * Deque implemented by Array
+ *
  * @author Xianghao Wang
- * */
+ */
 
 public class ArrayDeque<T> {
 
-    /** Invariants
+    /**
+     * Invariants
      * 1. The first item is items[(nextFirst + 1) % items.length]
      * 2. The last item is items[(nextLast - 1 + items.length) % items.length]
-     * */
+     */
 
     /* Underlying array */
     private T[] items;
-    
+
     /* Caching size */
     private int size;
 
@@ -21,36 +24,44 @@ public class ArrayDeque<T> {
 
     /* Empty deque */
     public ArrayDeque() {
-	    items = (T[]) new Object[8];
-	    size = 0;
-	    nextFirst = 0;
-	    nextLast = 1;
+        items = (T[]) new Object[8];
+        size = 0;
+        nextFirst = 0;
+        nextLast = 1;
     }
 
-    /** Get size
+    /**
+     * Get size
+     *
      * @return number of items in this deque
-     * */
+     */
     public int size() {
         return size;
     }
 
-    /** Check whether the deque is empty
+    /**
+     * Check whether the deque is empty
+     *
      * @return true if there is no items in this deque; false otherwise
-     * */
+     */
     public boolean isEmpty() {
-	    return size == 0;
+        return size == 0;
     }
 
-    /** Returns the usage of this array
+    /**
+     * Returns the usage of this array
+     *
      * @return ratio of spaces being used
-     * */
+     */
     private double usage() {
         return (double) size / items.length;
     }
 
-    /** Add item to the front of this deque
+    /**
+     * Add item to the front of this deque
+     *
      * @param x to be added
-     * */
+     */
     public void addFirst(T x) {
         if (items.length == size) {
             expand();
@@ -64,9 +75,11 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    /** Add item to the back of this deque
+    /**
+     * Add item to the back of this deque
+     *
      * @param x to be added
-     * */
+     */
     public void addLast(T x) {
         if (items.length == size) {
             expand();
@@ -80,10 +93,12 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    /** Get the item at the given index
+    /**
+     * Get the item at the given index
+     *
      * @param index to locate the item
      * @return item; if not such an item, return null
-     * */
+     */
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -91,21 +106,25 @@ public class ArrayDeque<T> {
         return items[(front() + index) % items.length];
     }
 
-    /** Helps locate the front
-     * */
+    /**
+     * Helps locate the front
+     */
     private int front() {
-        return(nextFirst + 1) % items.length;
+        return (nextFirst + 1) % items.length;
     }
 
-    /** Helps locate the back
-     * */
+    /**
+     * Helps locate the back
+     */
     private int back() {
         return (nextLast - 1 + items.length) % items.length;
     }
 
-    /** Remove the item at the front of the deque
+    /**
+     * Remove the item at the front of the deque
+     *
      * @return item removed
-     * */
+     */
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -128,9 +147,11 @@ public class ArrayDeque<T> {
         return x;
     }
 
-    /** Remove the item at the back of the deque
+    /**
+     * Remove the item at the back of the deque
+     *
      * @return item removed
-     * */
+     */
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -153,8 +174,9 @@ public class ArrayDeque<T> {
         return x;
     }
 
-    /** Prints the items in the deque from first to last appending with a new line
-     * */
+    /**
+     * Prints the items in the deque from first to last appending with a new line
+     */
     public void printDeque() {
         int count = 0;
         int p = front();
@@ -167,14 +189,15 @@ public class ArrayDeque<T> {
                 System.out.println("");
             }
 
-            p ++;
+            p++;
             p %= items.length;
-            count ++;
+            count++;
         }
     }
 
-    /** Shrink the array when the usage is too low
-     * */
+    /**
+     * Shrink the array when the usage is too low
+     */
     private void shrink() {
         T[] arr = (T[]) new Object[items.length / 2];
         int count = 0;
@@ -183,9 +206,9 @@ public class ArrayDeque<T> {
         while (count < size) {
             arr[count] = items[p];
 
-            p ++;
+            p++;
             p %= items.length;
-            count ++;
+            count++;
         }
 
         items = arr;
@@ -193,8 +216,9 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 
-    /** Expands the array when the array is full
-     * */
+    /**
+     * Expands the array when the array is full
+     */
     private void expand() {
         T[] arr = (T[]) new Object[items.length * 2];
         int count = 0;
@@ -203,9 +227,9 @@ public class ArrayDeque<T> {
         while (count < size) {
             arr[count] = items[p];
 
-            p ++;
+            p++;
             p %= items.length;
-            count ++;
+            count++;
         }
 
         items = arr;
