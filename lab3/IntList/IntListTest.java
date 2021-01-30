@@ -1,11 +1,12 @@
 import static org.junit.Assert.*;
 
+import IntList.IntList;
 import org.junit.Test;
 
 public class IntListTest {
 
     /**
-     * Example test that verifies correctness of the IntList.of static
+     * Example test that verifies correctness of the IntList.IntList.of static
      * method. The main point of this is to convince you that
      * assertEquals knows how to handle IntLists just fine.
      */
@@ -29,12 +30,12 @@ public class IntListTest {
 
     /**
      * Do not use the new keyword in your tests. You can create
-     * lists using the handy IntList.of method.
+     * lists using the handy IntList.IntList.of method.
      * <p>
      * Make sure to include test cases involving lists of various sizes
      * on both sides of the operation. That includes the empty list, which
      * can be instantiated, for example, with
-     * IntList empty = IntList.of().
+     * IntList.IntList empty = IntList.IntList.of().
      * <p>
      * Keep in mind that dcatenate(A, B) is NOT required to leave A untouched.
      * Anything can happen to A.
@@ -64,6 +65,27 @@ public class IntListTest {
         IntList exp = IntList.of(1, 2, 3, 4, 5, 6);
         assertEquals(exp, IntList.catenate(A, B));
         assertEquals(IntList.of(1, 2, 3), A);
+    }
+
+    @Test(timeout=1000)
+    public void testReverse() {
+
+        // Test the function returns a reversed list.
+        IntList A = IntList.of(1, 2, 3, 4, 5);
+
+        IntList actual = IntList.reverse(A);
+        IntList expected = IntList.of(5, 4, 3, 2, 1);
+        assertEquals(expected, actual);
+
+        // Test the function is destructive.
+        actual = A;
+        IntList unexpected = IntList.of(1, 2, 3, 4, 5);
+        assertNotEquals(unexpected, actual);
+
+        // Test the method handles a null input properly.
+        IntList B = null;
+        actual = IntList.reverse(B);
+        assertNull(actual);
     }
 
     /** If you're running this from the command line, you'll need
